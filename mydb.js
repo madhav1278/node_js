@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const PORT = process.env.PORT || 3000;
 
 // const mongoURL ='mongodb://localhost:27017/std'
-const mongoURL='mongodb+srv://madhavdhimmar7878:JNF89WVnf9H91gOX@cluster0.2qh8dat.mongodb.net/'
+// const mongoURL='mongodb+srv://madhavdhimmar7878:JNF89WVnf9H91gOX@cluster0.2qh8dat.mongodb.net/'
+const mongoURL=process.env.MONGODB_URL;
 
 mongoose.connect(mongoURL)
 
