@@ -30,9 +30,9 @@ const express = require('express');
 const app = express();
 
 const db=require('./mydb');
-const person=require('./models/person');
-const menu=require('./models/menu');
-const book=require('./models/book');
+// const person=require('./models/person');
+// const menu=require('./models/menu');
+// const book=require('./models/book');
 
 
 
