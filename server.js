@@ -35,8 +35,10 @@ const menu=require('./models/menu');
 const book=require('./models/book');
 
 
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+const PORT = process.env.PORT || 3000;
 
 
 const personrouter= require('./routes/personroutes');
@@ -47,7 +49,7 @@ const menurouter=require('./routes/menuroutes');
 
 app.use('/menu',menurouter);
 
-const PORT = process.env.PORT || 3000;
+
 
 app.listen(3000,()=>{
   console.log('listening on port 3000');
