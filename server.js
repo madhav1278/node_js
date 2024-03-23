@@ -2,11 +2,11 @@
 // app.post('/book', async (req,res)=>{
 //     try{
 //         const data = req.body;
-  
+
 //         const newBook = new book(data);
-  
+
 //         const response = await newBook.save();
-  
+
 //         console.log('book done');
 //         res.status(200).json(data);
 //     } catch(err){
@@ -14,7 +14,6 @@
 //       res.status(500).json({error: 'book server error'});
 //     }
 //   })
-
 
 // var fs = require('fs');
 // var os = require('os');
@@ -28,34 +27,38 @@
 
 const express = require('express');
 const app = express();
-
-const db=require('./mydb');
-// const person=require('./models/person');
-// const menu=require('./models/menu');
-// const book=require('./models/book');
-
+const db = require('./mydb');
+require('dotenv').config();
+const passport = require('./auth');
 
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
+const logRequest = (req, res, next) => {
+  console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`);
+  next();
+}
+app.use(logRequest);
 
-const personrouter= require('./routes/personroutes');
+app.use(passport.initialize());
+const localauthmiddleware = passport.authenticate('local', { session: false })
 
-app.use('/person',personrouter);
+app.get('/', localauthmiddleware, function (req, res) {
+  res.send('welcome to my world');
+})
 
-const menurouter=require('./routes/menuroutes');
+const menurouter = require('./routes/menuroutes');
+app.use('/menu', localauthmiddleware, menurouter);
 
-app.use('/menu',menurouter);
+const personrouter = require('./routes/personroutes');
+app.use('/person', localauthmiddleware, personrouter);
 
+const bookrouter = require('./routes/bookroutes');
+app.use('/book', bookrouter);
 
-
-app.listen(3000,()=>{
+app.listen(PORT, () => {
   console.log('listening on port 3000');
 })
 
-
-
-
-// server tari 
