@@ -53,7 +53,7 @@ const menurouter = require('./routes/menuroutes');
 app.use('/menu', localauthmiddleware, menurouter);
 
 const personrouter = require('./routes/personroutes');
-app.use('/person', localauthmiddleware, personrouter);
+app.use('/person', personrouter);
 
 const bookrouter = require('./routes/bookroutes');
 app.use('/book', bookrouter);
